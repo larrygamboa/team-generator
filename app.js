@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const userOutput = [];
+const output = [];
 const userQuestions = [
     {
         type: "input",
@@ -20,7 +20,7 @@ const userQuestions = [
     {
         type: "list",
         name: "role",
-        message: "Enter the team member's role: ",
+        message: "Select the team member's role: ",
         choices: ["Manager", "Engineer", "Intern"]
     },
     {
@@ -35,15 +35,69 @@ const userQuestions = [
     },
     {
         type: "input",
-        name: "id",
-        message: "Enter the team member's ID number: "
+        name: "office",
+        message: "Enter the manager's office number: ",
+        when: function(answers) {
+            return answers.role === "Engineer";
+        }
+    },
+    {
+        type: "input",
+        name: "github",
+        message: "Enter the engineer's GitHub account: ",
+        when: function(answers) {
+            return answers.role === "Engineer";
+        }
+    },
+    {
+        type: "input",
+        name: "school",
+        message: "Enter the intern's school name: ",
+        when: function(answers) {
+            return answers.role === "Intern";
+        }
     },
     {
         type: "confirm",
-        name: "addEmployee",
+        name: "addMember",
         message: "Would you like to add another team member?"
     }
 ];
+
+function userPrompt() {
+    inquirer.prompt(userQuestions)
+    .then (answers => {
+        output.push(answers)
+        if (answers.addMember) {
+            userPrompt();
+        } else {
+            const teamMember = output.map(member => {
+                switch(member.role) {
+                    case "Manager":
+                        return new Manager(member.name, member.id, member.email, member.office)
+                    case "Engineer":
+                        return new Engineer(member.name, member.id, member.email, member.github)
+                    case "Intern":
+                        return new Intern(member.name, member.id, member.email, member.school)
+                }
+            });
+            fs.writeFile(outputPath, render(teamMember), err =>{
+                if(err){
+                    throw err
+                }
+                console.log("Your team had been created!")
+            });
+        }
+    })
+    .catch(err => {
+        if(err){
+            console.log("Error: ", err);
+        }
+    })
+}
+
+userPrompt();
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
