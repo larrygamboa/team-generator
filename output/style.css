@@ -33,4 +33,8 @@ h3.card-title {
     .card-deck {
         flex-flow: column;
     }
+    
+    .card-deck .card {
+        margin-bottom: 15px;
+    }
 }

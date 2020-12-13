@@ -82,15 +82,15 @@ function userPrompt() {
         } else {
             const teamMember = output.map(employee => {
                 switch(employee.role) {
-                    // If "Manager" is selected, return to Manager's set of questions
+                    // If the team member is "Manager", return Manager's data
                     case "Manager":
-                        return new Manager(employee.name, employee.id, employee.email, employee.office)
-                    // If "Engineer" is selected, return to Engineer's set of questions
+                        return new Manager(employee.name, employee.id, employee.email, employee.office);
+                    // If the team member is "Engineer", return Engineer's data
                     case "Engineer":
-                        return new Engineer(employee.name, employee.id, employee.email, employee.github)
-                    // If "Intern" is selected, return to Intern's set of questions
+                        return new Engineer(employee.name, employee.id, employee.email, employee.github);
+                    // If the team member is "Intern", return Intern's data
                     case "Intern":
-                        return new Intern(employee.name, employee.id, employee.email, employee.school)
+                        return new Intern(employee.name, employee.id, employee.email, employee.school);
                 }
             });
             // Write to HTML file
