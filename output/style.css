@@ -17,6 +17,18 @@
     background-color: lightslategray;
 }
 
+h2.card-title {
+    font-size: 1.75rem;
+}
+
+h3.card-title {
+    font-size: 1.5rem;
+}
+
+.list-group-item {
+    font-size: 0.9375rem;
+}
+
 @media (max-width: 768px) {
     .card-deck {
         flex-flow: column;
