@@ -102,11 +102,9 @@ function userPrompt() {
             });
         }
     })
-    .catch(err => {
-        if(err){
-            console.log("Error: ", err);
-        }
-    })
+    .catch(function (err) {
+        console.log(err);
+    });
 }
 
 userPrompt();
