@@ -4,8 +4,8 @@
 https://github.com/larrygamboa/team-generator
 
 **Walkthrough Video**:
-1) 
-2) 
+1) https://youtu.be/F85mdX0Hh60
+2) https://drive.google.com/file/d/1LJeSG-eqHl89O_qFHLQmPsA2dDfGSY9S/view
 
 ## User Story
 As a manager, I want to generate a webpage that displays my team's basic info so that I have quick access to emails and GitHub profiles.
@@ -24,8 +24,7 @@ The purpose of the homework is to build a software engineering team generator co
 6) https://javascript.info/switch
 7) https://www.tutorialspoint.com/javascript/javascript_switch_case.htm
 
-## Video and Screenshot
+## Screenshot
 
-![alt text]()
 ![alt text](https://github.com/larrygamboa/team-generator/blob/main/assets/user-prompt-screenshot.jpg)
 ![alt text](https://github.com/larrygamboa/team-generator/blob/main/assets/generated-html-screenshot.jpg)
