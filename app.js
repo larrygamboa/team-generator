@@ -1,3 +1,4 @@
+// Dependencies
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -5,11 +6,17 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+// ========================================================================================
+// HTML output
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+// ========================================================================================
+// HTML renderer
 const render = require("./lib/htmlRenderer");
 
+// ========================================================================================
+// Ask the user some questions about a new team member
 const output = [];
 const userQuestions = [
     {
@@ -38,7 +45,7 @@ const userQuestions = [
         name: "office",
         message: "Enter the manager's office number: ",
         when: function(answers) {
-            return answers.role === "Engineer";
+            return answers.role === "Manager";
         }
     },
     {
@@ -64,6 +71,8 @@ const userQuestions = [
     }
 ];
 
+// ========================================================================================
+// Call a function to prompt the user to answer the questions about a new team member
 function userPrompt() {
     inquirer.prompt(userQuestions)
     .then (answers => {
@@ -71,14 +80,17 @@ function userPrompt() {
         if (answers.addMember) {
             userPrompt();
         } else {
-            const teamMember = output.map(member => {
-                switch(member.role) {
+            const teamMember = output.map(employee => {
+                switch(employee.role) {
+                    // Manager's info
                     case "Manager":
-                        return new Manager(member.name, member.id, member.email, member.office)
+                        return new Manager(employee.name, employee.id, employee.email, employee.office)
+                    // Engineer's info
                     case "Engineer":
-                        return new Engineer(member.name, member.id, member.email, member.github)
+                        return new Engineer(employee.name, employee.id, employee.email, employee.github)
+                    // Intern's info
                     case "Intern":
-                        return new Intern(member.name, member.id, member.email, member.school)
+                        return new Intern(employee.name, employee.id, employee.email, employee.school)
                 }
             });
             fs.writeFile(outputPath, render(teamMember), err =>{
